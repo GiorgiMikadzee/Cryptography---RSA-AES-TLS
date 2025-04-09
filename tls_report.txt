@@ -1,0 +1,11 @@
+TLS Handshake Explanation:
+TLS (Transport Layer Security) is the protocol that keeps our online communication secure. It encrypts data sent over the internet — whether you're logging into a website, making a payment, or just browsing. Without TLS, sensitive information like passwords and credit card numbers could be intercepted by attackers.
+To see TLS in action, I used the OpenSSL command to connect to www.google.com. This kicked off a TLS handshake. My system sent a "Client Hello" to the server with supported cipher suites and TLS version. The server replied with a "Server Hello" and its digital certificate.
+
+The server chose a cipher suite (in my case, TLS_AES_256_GCM_SHA384), and then both sides completed a secure key exchange. Once the handshake finished, all the communication was encrypted.
+
+MITM Protection:
+TLS protects against man-in-the-middle (MITM) attacks in two main ways. First, it verifies the identity of the server using certificates signed by trusted Certificate Authorities (CAs). If the certificate was fake, OpenSSL or a browser would flag it. Second, because the traffic is encrypted, even if someone intercepts the packets, they can’t read what’s inside.
+
+TLS in Websites:
+Today, almost all secure websites use TLS — it’s what powers the “S” in HTTPS. It ensures that everything I send or receive from a site is private and can’t be tampered with. Whether I’m logging in, shopping, or messaging, TLS is working in the background to keep it secure.

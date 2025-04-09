@@ -1,0 +1,35 @@
+
+PS C:\Users\Mikadze> openssl  version
+OpenSSL 3.0.15 3 Sep 2024 (Library: OpenSSL 3.0.15 3 Sep 2024)
+PS C:\Users\Mikadze> echo Bilbo Baggins has the ring > message.txt
+PS C:\Users\Mikadze> type message.txt
+Bilbo
+Baggins
+has
+ring
+PS C:\Users\Mikadze> echo "Bilbo Baggins has the ring" > message.txt
+Bilbo Baggins has the ring
+PS C:\Users\Mikadze> mkdir "$HOME\Desktop\Week4Lab"
+
+
+d-----          4/9/2025   1:28 PM                Week4Lab
+
+Bilbo Baggins has the ring
+..+.....+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*...+..+...+..........+.........+..+........+..........+......+...+..+.+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.......+...........+....+...+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*........+....+...+.....+.....................+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*........+...+..+............+..........+.....+.+.....+.+.....+...+......+.......+............+.....+......+.+.........+..+...+......+.+...+..+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl rsa -pubout -in private.pem -out public.pem
+writing RSA key
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl rsautl -encrypt -inkey public.pem -pubin -in message.txt -out message_rsa_encrypted.bin
+The command rsautl was deprecated in version 3.0. Use 'pkeyutl' instead.
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl pkeyutl -encrypt -pubin -inkey public.pem -in message.txt -out message_rsa_encrypted.bin
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl pkeyutl -decrypt -inkey private.pem -in message_rsa_encrypted.bin -out message_rsa_decrypted.txt
+PS C:\Users\Mikadze\Desktop\Week4Lab> type message_rsa_decrypted.txt
+Bilbo Baggins has the ring
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl rand -out aes_key.bin 32
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl rand -out aes_iv.bin 16
+PS C:\Users\Mikadze\Desktop\Week4Lab> $key = (Get-Content .\aes_key.bin -Encoding Byte | ForEach-Object { $_.ToString("X2") }) -join ""
+PS C:\Users\Mikadze\Desktop\Week4Lab> $iv = (Get-Content .\aes_iv.bin -Encoding Byte | ForEach-Object { $_.ToString("X2") }) -join ""
+PS C:\Users\Mikadze\Desktop\Week4Lab> openssl enc -aes-256-cbc -in message.txt -out message_aes_encrypted.bin -K $key -iv $iv                                                                                                                   PS C:\Users\Mikadze\Desktop\Week4Lab> openssl enc -d -aes-256-cbc -in message_aes_encrypted.bin -out message_aes_decrypted.txt -K $key -iv $iv
+PS C:\Users\Mikadze\Desktop\Week4Lab> type message_aes_decrypted.txt
+Bilbo Baggins has the ring
+PS C:\Users\Mikadze\Desktop\Week4Lab> notepad "Explanation of RSA vs AES.txt"

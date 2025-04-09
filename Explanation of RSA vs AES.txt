@@ -1,0 +1,7 @@
+RSA and AES are both encryption methods, but they work in totally different ways.
+
+RSA is what’s called asymmetric encryption. It uses two keys — a public key to encrypt and a private key to decrypt. It’s pretty secure, but also slower, and it’s really only practical for encrypting small things, like a password or another key.
+
+AES, on the other hand, is symmetric encryption. It uses just one key to both encrypt and decrypt. It’s way faster than RSA and is great for encrypting large amounts of data, like entire files.
+
+In the real world, they’re often used together. RSA is used to securely share the AES key, and then AES does the heavy lifting to encrypt all the actual data. This combo gives us both speed and strong security.
